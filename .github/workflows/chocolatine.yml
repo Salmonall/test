@@ -16,5 +16,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }}
         run: |
-          git remote add chocolatine git@github.com:Salmonall/chocolatine.git
+          git remote add chocolatine git@github.com:EpitechPromo2027/B-DOP-200-MPL-2-1-chocolatine-samy.kada.git
           git push chocolatine main
