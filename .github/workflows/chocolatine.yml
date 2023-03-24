@@ -1,0 +1,20 @@
+name: Synchronize Test to Chocolatine
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Sync with Chocolatine
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git remote add chocolatine git@github.com:Salmonall/chocolatine.git
+          git push chocolatine main
