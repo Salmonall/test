@@ -13,5 +13,5 @@ jobs:
     - name: Mirror to Second
       uses: wei/mirror@v1
       with:
-        target-repo: Salmonall/git@github.com:EpitechPromo2027/B-DOP-200-MPL-2-1-chocolatine-samy.kada.git
+        target-repo: git@github.com:EpitechPromo2027/B-DOP-200-MPL-2-1-chocolatine-samy.kada.git
         token: ${{ secrets.GITLAB_SSH_PRIVATE_KEY }}
