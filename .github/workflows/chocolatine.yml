@@ -1,17 +1,32 @@
-name: Mirror to Second
+name: Mirroring
 
-on:
-  push:
-    branches:
-      - main
+on: [push, delete]
 
 jobs:
-  mirror:
+  to_gitlab:
+    runs-on: ubuntu-latest
+    steps:                                              # <-- must use actions/checkout before mirroring!
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url:
+            git@gitlab.com:<username>/<target_repository_name>.git
+          ssh_private_key:                              # <-- use 'secrets' to pass credential information.
+            ${{ secrets.GITLAB_SSH_PRIVATE_KEY }}
+
+  to_codecommit:                                        # <-- different jobs are executed in parallel.
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Mirror to Second
-      uses: wei/mirror@v1
-      with:
-        target-repo: git@github.com:EpitechPromo2027/B-DOP-200-MPL-2-1-chocolatine-samy.kada.git
-        token: ${{ secrets.GITLAB_SSH_PRIVATE_KEY }}
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url:
+            git@github.com:EpitechPromo2027/B-DOP-200-MPL-2-1-chocolatine-samy.kada.git
+          ssh_private_key:
+            ${{ secrets.CODECOMMIT_SSH_PRIVATE_KEY }}
+          ssh_username:                                 # <-- (for codecommit) you need to specify ssh-key-id as ssh username.
+            ${{ secrets.CODECOMMIT_SSH_PRIVATE_KEY_ID }}
