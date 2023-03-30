@@ -27,9 +27,6 @@ jobs:
   check_coding_style:
     container:
       image: ghcr.io/epitech/coding-style-checker:latest
-    allow_failure: true
-    tags:
-      - docker
     rules:
       - if: $CI_COMMIT_BRANCH
     steps:
