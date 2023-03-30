@@ -65,5 +65,9 @@ jobs:
 
   run_tests:
       image: epitechcontent/epitest-docker
-      steps:
-        - timeout 2m make tests_run
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - run: timeout 2m make tests_run
