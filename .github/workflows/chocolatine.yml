@@ -25,6 +25,7 @@ jobs:
       - run: make
      
   check_coding_style:
+    runs-on: ubuntu-latest
     container:
       image: ghcr.io/epitech/coding-style-checker:latest
     rules:
