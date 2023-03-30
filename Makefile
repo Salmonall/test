@@ -25,3 +25,6 @@ fclean : clean
 	$(RM) $(TARGET_RUN)
 
 re : fclean all
+
+tests_run :
+	echo Ça marche
