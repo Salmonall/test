@@ -26,18 +26,19 @@ jobs:
      
   check_coding_style:
     image: ghcr.io/epitech/coding-style-checker:latest
-    script:
-      - check.sh $(pwd) $(pwd)
-    rules:
-      - if: $CI_COMMIT_BRANCH
     allow_failure: true
     tags:
       - docker
-    artifacts:
-      paths:
-        - gl-code-quality-report.json
-    script:
-      - sh check.sh $(pwd) $(pwd) || (echo "Coding style errors found" && exit 1)
-    artifacts:
-      reports:
-        codequality: gl-code-quality-report.json
+    rules:
+      - if: $CI_COMMIT_BRANCH
+    steps:
+      - run: check.sh $(pwd) $(pwd)
+      - run: |
+          file="coding-style-reportslog"
+          while IFS= read -r line; do
+            offending_file="$(echo "$line" | grep -oP '.+(?=:[0-9]+:)' | cut -c 3-)"
+            offending_line="$(echo "$line" | grep -oP '(?!\..+:)[0-9]+(?=:)')"
+            error_level="$(echo "$line" | grep -oE "(MAJOR|MINOR|INFO)")"
+            error_type="$(echo "$line" | grep -oP "C-[A-Z]+[0-9]+$")"
+            echo "Ligne lue : $line"
+          done < "$file"
