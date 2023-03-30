@@ -31,7 +31,7 @@ jobs:
     steps:
       - run: check.sh $(pwd) $(pwd)
       - run: |
-          file="coding-style-reportslog"
+          file="coding-style-reports.log"
           while IFS= read -r line; do
             offending_file="$(echo "$line" | grep -oP '.+(?=:[0-9]+:)' | cut -c 3-)"
             offending_line="$(echo "$line" | grep -oP '(?!\..+:)[0-9]+(?=:)')"
