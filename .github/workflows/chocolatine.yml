@@ -64,6 +64,7 @@ jobs:
           done
 
   run_tests:
+    container:
       image: epitechcontent/epitest-docker
     steps:
       - name: Checkout repository
