@@ -42,3 +42,23 @@ jobs:
               error_type="$(echo "$line" | cut -d':' -f4)"
               echo "::error file=$offending_file,line=$offending_line,title=$error_level coding style error::$error_type"
           done < "coding-style-reports.log"
+
+  check_program_compilation:
+    runs-on: ubuntu-latest
+    container:
+    image: epitechcontent/epitest-docker
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - run: timeout 2m make
+      - run: |
+        make clean
+        EXECUTABLES=${{ vars.EXECUTABLES }}
+        for exe in $EXECUTABLES; do
+          if [ ! -x "$exe" ]; then
+            echo "$exe not found or not executable"
+            exit 1
+          fi
+        done
