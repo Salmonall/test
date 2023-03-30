@@ -25,7 +25,8 @@ jobs:
       - run: make
      
   check_coding_style:
-    image: ghcr.io/epitech/coding-style-checker:latest
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
     allow_failure: true
     tags:
       - docker
