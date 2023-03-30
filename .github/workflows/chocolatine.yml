@@ -28,8 +28,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/epitech/coding-style-checker:latest
-    rules:
-      - if: $CI_COMMIT_BRANCH
     steps:
       - run: check.sh $(pwd) $(pwd)
       - run: |
