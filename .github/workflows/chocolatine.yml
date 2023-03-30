@@ -62,3 +62,8 @@ jobs:
               exit 1
             fi
           done
+
+  run_tests:
+    image: epitechcontent/epitest-docker
+    steps:
+      - timeout 2m make tests_run
