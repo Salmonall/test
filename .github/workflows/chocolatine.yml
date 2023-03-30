@@ -64,6 +64,6 @@ jobs:
           done
 
   run_tests:
-    image: epitechcontent/epitest-docker
-    steps:
-      - timeout 2m make tests_run
+      image: epitechcontent/epitest-docker
+      steps:
+        - timeout 2m make tests_run
